@@ -1,0 +1,54 @@
+Step 1: Configure port mirroring in the forwarding options hierarchy:
+
+    [edit forwarding-options]
+
+    port-mirroring {
+        input {
+            rate 1;
+            run-length 10;
+        }
+        family inet {
+            output {
+                interface ge-0/0/1.0 {
+                    next-hop 2.2.2.1;
+                }
+            }
+        }
+    }
+
+
+Step 2: Configure firewall filter to port mirror
+
+    [edit firewall]
+
+    filter port-mirror {
+        term 1 {
+            from {
+                source-address {
+                    0.0.0.0/0;
+                }
+            }
+            then {
+                port-mirror;
+                accept;
+            }
+        }
+    }
+
+Step 3: Apply the filter on an interface that is to be mirrored
+
+    [edit interfaces]
+        ge-0/0/0 {
+            unit 0 {
+                family inet {
+                    filter {
+                        input port-mirror;
+                        output port-mirror;
+                    }
+                    address 1.1.1.1/24;
+                }
+            }
+        }
+
+
+

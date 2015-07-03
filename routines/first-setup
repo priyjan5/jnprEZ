@@ -1,0 +1,21 @@
+1- #set system host-name [name]
+
+2- #set system root-authentication plain-text-password
+
+3- #set system time-zone Asia/Jerusalem
+
+4- #run set date 201406130400.00
+
+5- #system services web-management http  interface [iface name]
+
+6- #set system services ssh 
+
+7- #set login message "THIS IS A PRIVATE SYSTEM UNAUTHORIZED ACCESS IS DENIED"
+
+8- #set chassis alarm management-ethernet linkdown ignore
+
+9- #set system name-server [ipaddress]
+
+10- commit
+
+>request system configuration rescue save

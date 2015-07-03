@@ -1,0 +1,53 @@
+srx-IPSEC
+
+#set interfaces st0 unit 0 family inet address [ipaddres/netmask] (create tunnel interface for VPN)
+
+#####################   IKE CONFIGURATION ##################################
+#set security ike policy [ike-policy-name] mode main 
+# set security ike policy [ike-policy-name] proposal-set standard 
+# set security ike policy to-HQ pre-shared-key ascii-text [ike-psk]
+
+#set security ike gateway [gw-name] ike-policy [ike-policy-name]
+# set security ike gateway [gw-name] address [ipaddr-to-peer]
+# set security ike gateway [gw-name] external-interface [phys-inter-to-use] 
+#############################################################################
+
+
+############################ IPSEC CONFIGURATION ###############################
+#set security ipsec policy [ipsec-policy] perfect-forward-secrecy keys [group2]
+# set security ipsec policy [ipsec-policy] proposal-set [standard] 
+
+#set security ipsec vpn [vpn-name] bind-interface st0.0
+# set security ipsec vpn [vpn-name] ike gateway [gw-name]
+# set security ipsec vpn [vpn-name] ike ipsec-policy [ip-sec-policy] 
+
+#################################################################################
+
+(THEN CREATE A ZONE FOR THE TUNNEL INTERFACE TO BE RESIDE IN )
+# set security zones security-zone OUTSIDE interfaces st0.0
+
+(it is preferred to "establish tunnel immediatly to make sure everything is up and running"
+establish-tunnels (immediately | on-traffic);
+
+Hierarchy Level
+[edit security ipsec vpn vpn-name]
+
+
+set security ike policy To_HQ_IKE mode main 
+set security ike policy To_HQ_IKE proposal-set standard 
+set security ike policy To_HQ_IKE pre-shared-key ascii-text test123
+
+set security ike gateway TO_HQ_GW ike-policy To_HQ_IKE
+set security ike gateway TO_HQ_GW  address 172.16.10.2
+set security ike gateway TO_HQ_GW  external-interface fe-0/0/0
+ 
+set security ipsec policy TO_HQ_POLICY perfect-forward-secrecy keys group2
+set security ipsec policy TO_HQ_POLICY proposal-set standard
+
+set security ipsec vpn TO_HQ_VPN bind-interface st0.0
+set security ipsec vpn TO_HQ_VPN ike gateway TO_HQ_GW
+set security ipsec vpn TO_HQ_VPN ike ipsec-policy TO_HQ_POLICY
+
+set security ipsec vpn TO_HQ_VPN establish-tunnels immediately
+
+ 

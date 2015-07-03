@@ -1,0 +1,71 @@
+
+Step 1) Configure a policer to limit the bandwidth to 1 mbps.
+
+# set firewall policer policer-1mb if-exceeding bandwidth-limit 1m
+# set firewall policer policer-1mb if-exceeding burst-size-limit 625000
+# set firewall policer policer-1mb then discard 
+
+
+Step 2) Configure another policer to limit the bandwidth to 9 mbps.
+
+# set firewall policer policer-9mb if-exceeding bandwidth-limit 9m
+# set firewall policer policer-9mb if-exceeding burst-size-limit 625000
+# set firewall policer policer-9mb then discard 
+
+
+Step 3) Configure a firewall filter with a term (term 0) that uses a policer (policer-1mb) to rate-limit traffic to 1 mbps for particular hosts.
+
+# set firewall family inet filter output-limit term 0 from source-address 10.10.10.10/32
+# set firewall family inet filter output-limit term 0 from source-address 10.10.10.11/32
+# set firewall family inet filter output-limit term 0 then policer policer-1mb
+# set firewall family inet filter output-limit term 0 then accept
+
+
+Step 4) Configure another term (term 1) in the same filter to apply a policer (policer-9mb) to rate-limit traffic to 9 mbps for all other users.
+
+# set firewall family inet filter output-limit term 1 from source-address 0.0.0.0/0
+# set firewall family inet filter output-limit term 1 then policer policer-9mb
+# set firewall family inet filter output-limit term 1 then accept 
+
+
+Step 5) Apply the firewall filter to the logical interface.
+
+# set interfaces ge-0/0/0.0 family inet filter input output-limit
+# set interfaces ge-0/0/0.0 family inet filter output output-limit 
+
+
+Notes
+
+    To limit upload speed, apply the firewall filter to the "input" direction on the interface connected to the related network.
+
+    To limit download speed, apply the firewall filter to the "output" direction on the interface connected to the related network.
+
+    To rate-limit the traffic so that a specific percentage of available bandwidth can be used by a user/network, use the "bandwidth-percent" option:
+
+     root@SRX# set firewall policer policer-1mb if-exceeding ?
+     Possible completions:
+        bandwidth-limit Bandwidth limit (32000..50000000000 bits per second)
+        bandwidth-percent Bandwidth limit in percentage (1..100 percent)
+
+Purpose:
+Configuration
+Implementation
+Installation
+Specifications
+Troubleshooting
+
+Related Links:
+
+    Example: Configuring a Rate-Limiting Filter Based on Destination Class
+
+User ID Password
+
+    Login assistance
+
+ 
+
+ 
+ASK THE KB
+Question or KB ID:
+
+

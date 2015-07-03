@@ -1,0 +1,12 @@
+# set security zones security-zone [zname]
+
+# set security zones security-zone [zname] host-inbound-traffic system-services [sname]
+
+# set security zones security-zone [zname] host-inbound-traffic protocols [pname]
+
+#set security zones security-zone [zname] interfaces [iname]
+
+
+
+
+

@@ -1,0 +1,10 @@
+create a vlan subinterface:
+
+# set interfaces vlan unit [num] family inet address [ip address]
+
+#set vlans [vname] vlan-id [802.1q tag]
+
+#set vlans [vname] l3-interface [vlan]
+
+# set interfaces fe-0/0/9 unit 0 family ethernet-switching vlan members [vname]
+

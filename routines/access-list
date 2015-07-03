@@ -1,0 +1,6 @@
+
+set firewall family ethernet-switching filter [filter-name] term [term-name] from [match criteria]
+
+set firewall family ethernet-switching filter [filter-name] term [term-name] then [action]
+
+set interfaces ge-0/0/0 unit 0 family ethernet-switching filter [direction] [filter-name]

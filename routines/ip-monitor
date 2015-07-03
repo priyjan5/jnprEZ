@@ -1,0 +1,27 @@
+#    set services rpm probe example test test-name probe-count 3
+#    set services rpm probe example test test-name probe-interval 15
+#    set services rpm probe example test test-name test-interval 10
+
+The requirement for fail-over is provided by configuring the successive-loss and/or total-loss values. The conditions must be met inside of the test window; so this configuration will require that all three probes from the test window be lost to cause a fail-over.
+
+#   set services rpm probe example test test-name thresholds successive-loss 3
+#   set services rpm probe example test test-name thresholds total-loss 3
+
+To complete the rpm setup, specify where the probes are being sent, and which interface to use.  This example also includes the optional next-hop, though it is not required unless the probe needs to use a different next-hop than is in the routing table.
+
+#   set services rpm probe example test test-name target address 10.0.0.2
+#   set services rpm probe example test test-name destination-interface fe-0/0/0.0
+#   set services rpm probe example test test-name next-hop 10.0.0.2
+
+The final step is to configure the policy to use the example configured above; upon failure, it will switch the next-hop of the static route configured to 20.0.0.2.
+
+#   set services ip-monitoring policy test match rpm-probe example
+#   set services ip-monitoring policy test then preferred-route route 50.0.0.0/8 next-hop 20.0.0.2
+
+
+> show services ip-monitoring status
+
+
+> show services rpm history-results
+
+

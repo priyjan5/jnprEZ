@@ -1,0 +1,17 @@
+#set system host-name [name]
+#set system root-authentication plain-text-password
+#set interfaces me0 unit 0 family inet address 192.168.0.1/24
+
+#set system time-zone Asia/Jerusalem
+#run set date 201406130400.00
+
+#sethttp://forums.juniper.net/t5/Ethernet-Switching/alarms-on-ex2200/td-p/173454 system services web-management http  
+#set system services ssh 
+#set login message "THIS IS A PRIVATE SYSTEM UNAUTHORIZED ACCESS IS DENIED"
+
+#request system configuration rescue save
+# set chassis alarm management-ethernet linkdown ignore
+
+#commit
+
+

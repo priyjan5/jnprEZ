@@ -1,0 +1,5 @@
+#edit snmp
+#set description "Edge router of this organization"
+#set contact "Issa Hafiri 0598 55 3130"
+#set community MainCommunity authorization read-write
+

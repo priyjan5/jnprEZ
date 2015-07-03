@@ -1,0 +1,6 @@
+note: VLAN must be first setup and physical interface in it
+
+1- # set system services dhcp pool router [default gw]
+2- # set system services dhcp pool [networkip] address-range low [ipaddress] high [ipaddress]
+
+

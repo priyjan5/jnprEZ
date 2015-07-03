@@ -1,0 +1,15 @@
+set interfaces ae1 aggregated-ether-options lacp active  
+set chassis aggregated-devices ethernet device-count 2
+set interfaces ae0 unit 0 family inet address 192.0.2.0/25
+set interfaces ae1 unit 0 family inet address 192.0.2.128/25
+set interfaces xe-0/1/0 ether-options 802.3ad ae0
+set interfaces xe-1/1/0 ether-options 802.3ad ae0
+set interfaces xe-0/1/1 ether-options 802.3ad ae1
+set interfaces xe-1/1/1 ether-options 802.3ad ae1
+
+--------optional------
+set interfaces ae0 aggregated-ether-options minimum-links 1
+set interfaces ae0 aggregated-ether-options link-speed 10g
+set interfaces ae1 aggregated-ether-options minimum-links 1
+set interfaces ae1 aggregated-ether-options link-speed 10g
+----

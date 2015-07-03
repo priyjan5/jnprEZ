@@ -1,0 +1,22 @@
+
+    root@SRX> request system snapshot slice alternate
+
+
+
+It will take a while then you can check the version of the backup software by executing the following command:
+
+    root@SRX> show system software backup
+
+
+Note : The above will not work or show the following error if you do not have dual partitions:
+
+    Error: usb media missing or invalid
+
+Kindly execute the following command to check the internal partition:
+
+    root@SRX> show system snapshot media internal
+    root@SRX> show system software backup
+
+
+
+
