@@ -1,0 +1,4 @@
+host,user,password
+10.10.10.1,root,lab1234
+10.10.10.10,root,lab1234
+10.10.10.5,root,coco

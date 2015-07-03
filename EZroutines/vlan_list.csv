@@ -1,0 +1,9 @@
+Vlan-name,Vlan-id,Desc
+vlan_cctv,44,vlan holding cctv
+vlan_data,33,employee vlan for data
+vlan_vip,11,for top level CEO
+vlan_management,55,management VLAN
+mobile_phones,66,for smart phones
+issa_hafiri,99,Issa Hafiri
+charlie_vlan,9,test!!!!!!!!
+hirbawi,669,asd;kjhsdljkfsdh
